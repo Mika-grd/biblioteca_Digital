@@ -1,6 +1,8 @@
 package co.edu.uniquindio.poo.model;
 
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 
 public class BibliotecaMain {
     private String nombre;
@@ -48,13 +50,20 @@ public class BibliotecaMain {
         }
         return null;
     }
+
+    public <T> String agregarObjeto(T objeto, LinkedList<T> listaObjetos) {
+        if (objeto != null) {
+            listaObjetos.add(objeto);
+            return "Exitoso";
+        }
+        return "No exitoso";
+    }
+
     /*CRUD Material    */
 
     public String agregarMaterial(MaterialBibliografico material) {
-        String resultado = "Exitoso";
-        if (material != null) {
-            listaMateriales.add(material);
-            return resultado;
+        if (!material.getRegistradoPor().isSancionado()) {
+            return agregarObjeto(material, listaMateriales);
         }
         return "No exitoso";
     }
