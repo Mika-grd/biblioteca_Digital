@@ -1,34 +1,32 @@
 package co.edu.uniquindio.poo.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.LinkedList;
 
-public class Usuario {
+public class Usuario extends Persona implements IMiembro{
     private BibliotecaMain biblioteca;
     private String password;
-    private String nombre;
-    private String id;
-    private String correo;
     private boolean sancionado;
     private LinkedList<Prestamo> prestamosPropios = new LinkedList<>();
 
     /*Buscar libro por id*/
-    private MaterialBibliografico buscarMaterialBibliografico(String id) {
+    public MaterialBibliografico buscarMaterialBibliografico(String id) {
         return biblioteca.buscarMaterial(id);
     };
 
     /*Buscar libro por autor*/
-    private MaterialBibliografico buscarMaterialBibliograficoAutor(String autor) {
+    public MaterialBibliografico buscarMaterialBibliograficoAutor(String autor) {
         return biblioteca.buscarMaterialAutor(autor);
     };
 
 
     /*Metodo para crear un prestamo en la lista de prestamos propios, para que eventualmente un admin lo apruebe*/
-    private String solicitarPrestamo(MaterialBibliografico material) {
+    public String solicitarPrestamo(MaterialBibliografico material) {
         String solicitarPrestamo = "";
 
         if (material != null) {
-            if(material.isDisponible() && material.isPrestado()){
+            if(material.isDisponible() && !material.isPrestado()){
                 prestamosPropios.add(new Prestamo(material,null, null, null, null, null, false, false));
             }
         }
@@ -37,7 +35,7 @@ public class Usuario {
     }
 
     /*Metodo para devolver el material de algun prestamo y marcar como vencido o no vencido el prestamo y volver a marcar como disponible el material*/
-    private String devolverMaterial(MaterialBibliografico material, LocalDate fechaActual) {
+    public String devolverMaterial(MaterialBibliografico material, LocalDate fechaActual) {
         String devolverMaterial = "";
 
         if (material != null) {
@@ -56,12 +54,13 @@ public class Usuario {
     }
 
     /*Constructor Gets & Sets*/
-    public Usuario(String password, String nombre, String id, String correo, boolean sancionado) {
+
+    public Usuario(String nombre, String id, String correo, BibliotecaMain biblioteca, String password, boolean sancionado, LinkedList<Prestamo> prestamosPropios) {
+        super(nombre, id, correo);
+        this.biblioteca = biblioteca;
         this.password = password;
-        this.nombre = nombre;
-        this.id = id;
-        this.correo = correo;
         this.sancionado = sancionado;
+        this.prestamosPropios = prestamosPropios;
     }
 
     public LinkedList<Prestamo> getPrestamosPropios() {
@@ -80,29 +79,6 @@ public class Usuario {
         this.password = password;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
 
     public boolean isSancionado() {
         return sancionado;
