@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed9537e-3450-40f6-9edb-38132328605e" name="Changes" comment=".">
-      <change beforePath="$PROJECT_DIR$/.idea/biblioteca_Digital.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/biblioteca_Digital.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="fed9537e-3450-40f6-9edb-38132328605e" name="Changes" comment="Implementacion Singleton, CRUD generico reutilizable">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliotecaDigital/src/main/java/co/edu/uniquindio/poo/model/BibliotecaMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/BibliotecaDigital/src/main/java/co/edu/uniquindio/poo/model/BibliotecaMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BibliotecaDigital/src/main/java/co/edu/uniquindio/poo/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/BibliotecaDigital/src/main/java/co/edu/uniquindio/poo/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BibliotecaDigital/src/main/java/co/edu/uniquindio/poo/model/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/BibliotecaDigital/src/main/java/co/edu/uniquindio/poo/model/Usuario.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,21 +40,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -75,7 +74,17 @@
       <workItem from="1740547520074" duration="3189000" />
       <workItem from="1740550852876" duration="14000" />
       <workItem from="1740586460995" duration="131000" />
+      <workItem from="1740598546316" duration="1876000" />
     </task>
+    <task id="LOCAL-00001" summary="Implementacion Singleton, CRUD generico reutilizable">
+      <option name="closed" value="true" />
+      <created>1740599695184</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1740599695184</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -94,6 +103,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="Implementacion Singleton, CRUD generico reutilizable" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implementacion Singleton, CRUD generico reutilizable" />
   </component>
 </project>

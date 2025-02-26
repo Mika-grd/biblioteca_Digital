@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 
 public class Usuario extends Persona implements IMiembro{
-    private BibliotecaMain biblioteca;
+    private BibliotecaMain biblioteca = BibliotecaMain.getInstance();
     private String password;
     private boolean sancionado;
     private LinkedList<Prestamo> prestamosPropios = new LinkedList<>();

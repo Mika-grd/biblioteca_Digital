@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 
 public class UsuarioAdmin extends Persona implements IGestorAdmin{
-    private BibliotecaMain biblioteca;
+    private BibliotecaMain biblioteca=  BibliotecaMain.getInstance();
     private String password;
     private boolean sancionado;
     private BibliotecaMain bibliotecaMain;

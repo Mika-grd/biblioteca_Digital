@@ -15,9 +15,9 @@ public class BibliotecaMain {
 
 
     /*Implementación del singleton */
-    public static BibliotecaMain getInstance(String nombre, LinkedList<MaterialBibliografico> listaMateriales, LinkedList<Prestamo> listaPrestamos, LinkedList<Usuario> listaUsuarios) {
+    public static BibliotecaMain getInstance() {
         if (instance == null) {
-            instance = new BibliotecaMain("UQ",listaMateriales,listaPrestamos,listaUsuarios); // Se crea solo la primera vez
+            instance = new BibliotecaMain("UQ",new LinkedList<MaterialBibliografico>(), new LinkedList<Prestamo>(), new LinkedList<Usuario>() ); // Se crea solo la primera vez
         }
         return instance;
     }
