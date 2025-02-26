@@ -55,12 +55,11 @@ public class Usuario extends Persona implements IMiembro{
 
     /*Constructor Gets & Sets*/
 
-    public Usuario(String nombre, String id, String correo, BibliotecaMain biblioteca, String password, boolean sancionado, LinkedList<Prestamo> prestamosPropios) {
+    public Usuario(String nombre, String id, String correo, String password, boolean sancionado) {
         super(nombre, id, correo);
-        this.biblioteca = biblioteca;
         this.password = password;
         this.sancionado = sancionado;
-        this.prestamosPropios = prestamosPropios;
+        this.prestamosPropios = new LinkedList<Prestamo>();
     }
 
     public LinkedList<Prestamo> getPrestamosPropios() {

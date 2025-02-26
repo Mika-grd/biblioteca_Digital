@@ -196,6 +196,16 @@ public class BibliotecaMain {
         this.listaMateriales = listaMateriales;
     }
 
+    @Override
+    public String toString() {
+        return "BibliotecaMain{" +
+                "nombre='" + nombre + '\'' +
+                ", listaMateriales=" + listaMateriales +
+                ", listaPrestamos=" + listaPrestamos +
+                ", listaUsuarios=" + listaUsuarios +
+                '}';
+    }
+
     public LinkedList<Prestamo> getListaPrestamos() {
         return listaPrestamos;
     }

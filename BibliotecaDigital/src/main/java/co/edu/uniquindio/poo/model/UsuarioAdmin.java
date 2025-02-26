@@ -10,13 +10,13 @@ public class UsuarioAdmin extends Persona implements IGestorAdmin{
     private BibliotecaMain bibliotecaMain;
     private LinkedList<Prestamo> listaPrestamosAPorbados = new LinkedList<>();
 
-    public UsuarioAdmin(String nombre, String id, String correo, BibliotecaMain biblioteca, String password, boolean sancionado, BibliotecaMain bibliotecaMain, LinkedList<Prestamo> listaPrestamosAPorbados) {
+    public UsuarioAdmin(String nombre, String id, String correo, String password, boolean sancionado) {
         super(nombre, id, correo);
         this.biblioteca = biblioteca;
         this.password = password;
         this.sancionado = sancionado;
         this.bibliotecaMain = bibliotecaMain;
-        this.listaPrestamosAPorbados = listaPrestamosAPorbados;
+        this.listaPrestamosAPorbados = new LinkedList<>();
     }
 
     /*Gestionar Materiales */
