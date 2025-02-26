@@ -1,5 +1,7 @@
 package co.edu.uniquindio.poo.model;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +11,17 @@ public class BibliotecaMain {
     private LinkedList<MaterialBibliografico> listaMateriales;
     private LinkedList<Prestamo> listaPrestamos;
     private LinkedList<Usuario> listaUsuarios;
+    private static BibliotecaMain instance;
+
+
+    /*Implementación del singleton */
+    public static BibliotecaMain getInstance(String nombre, LinkedList<MaterialBibliografico> listaMateriales, LinkedList<Prestamo> listaPrestamos, LinkedList<Usuario> listaUsuarios) {
+        if (instance == null) {
+            instance = new BibliotecaMain("UQ",listaMateriales,listaPrestamos,listaUsuarios); // Se crea solo la primera vez
+        }
+        return instance;
+    }
+
 
     /* Metodo para contar los prestamos pendientes de todos los usuarios */
 
@@ -51,12 +64,49 @@ public class BibliotecaMain {
         return null;
     }
 
+    //CRUD generico
+
     public <T> String agregarObjeto(T objeto, LinkedList<T> listaObjetos) {
         if (objeto != null) {
             listaObjetos.add(objeto);
             return "Exitoso";
         }
         return "No exitoso";
+    }
+
+    public <T> String eliminarObjeto(T objeto, LinkedList<T> listaObjetos) {
+        if (objeto != null) {
+            listaObjetos.remove(objeto);
+            return "Exitoso";
+        }
+        return "No exitoso";
+    }
+
+    public <T> String editarObjeto(T objeto, T objetoNuevo, LinkedList<T> listaObjetos) {
+        String resultado = "Exitoso";
+        if (objeto != null && objetoNuevo != null) {
+            listaObjetos.remove(objeto);
+            listaObjetos.add(objetoNuevo);
+            return resultado;
+        }
+        return "No exitoso";
+    }
+
+
+    public <T> T buscarObjeto(Object id, LinkedList<T> listaObjetos) {
+        for (T objeto : listaObjetos) {
+            try {
+                Method getIdMethod = objeto.getClass().getMethod("getId");
+                Object objetoId = getIdMethod.invoke(objeto);
+
+                if (objetoId != null && objetoId.equals(id)) {
+                    return objeto;
+                }
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
+        return null; // Retorna null si no se encuentra el objeto con el ID dado
     }
 
     /*CRUD Material    */
@@ -69,120 +119,61 @@ public class BibliotecaMain {
     }
 
     public String eliminarMaterial(MaterialBibliografico material) {
-        String resultado = "Exitoso";
-        if (material != null) {
-            listaMateriales.remove(material);
-            return resultado;
-        }
-        return "No exitoso";
+        return eliminarObjeto(material, listaMateriales);
     }
 
     public String editarMaterial(MaterialBibliografico material, MaterialBibliografico materialNuevo) {
-        String resultado = "Exitoso";
-        if (material != null && materialNuevo != null) {
-            listaMateriales.remove(material);
-            listaMateriales.add(materialNuevo);
-            return resultado;
+        if (listaMateriales.contains(material)) {
+            return editarObjeto(material, materialNuevo, listaMateriales);
         }
-        return "No exitoso";
+        return "No existe";
     }
 
     public MaterialBibliografico buscarMaterial(String id) {
-        for (MaterialBibliografico material : listaMateriales) {
-            if (material.getId().equals(id)) {
-                return material;
-            }
-        }
-        return null;
+        return buscarObjeto(id, listaMateriales);
     }
 
     /*CRUD Prestamo     */
 
     private Prestamo buscarPrestamo(String id) {
-        for (Prestamo prestamo : listaPrestamos) {
-            if (prestamo.getId().equals(id)) {
-                return prestamo;
-            }
-        }
-        return null;
+        return buscarObjeto(id, listaPrestamos);
     }
 
     public String agregarPrestamo(Prestamo prestamo) {
-        String resultado = "Exitoso";
-        if (prestamo != null) {
-            listaPrestamos.remove(prestamo);
-            return resultado;
-        }
-        return "No exitoso";
+        return agregarObjeto(prestamo, listaPrestamos);
     }
 
     private String eliminarPrestamo(Prestamo prestamo) {
-        String resultado = "Exitoso";
-        if (prestamo != null) {
-            listaPrestamos.remove(prestamo);
-            return resultado;
-
-        }
-        return "No exitoso";
+        return eliminarObjeto(prestamo, listaPrestamos);
     }
 
     private String editarPrestamo(Prestamo prestamo, Prestamo prestamoNuevo) {
-        String resultado = "Exitoso";
-        if (prestamo != null && prestamoNuevo != null) {
-            listaPrestamos.remove(prestamo);
-            listaPrestamos.add(prestamoNuevo);
-            return resultado;
-
-        }
-        return "No exitoso";
+        return editarObjeto(prestamo, prestamoNuevo, listaPrestamos);
     }
 
     /*CRUD Usuario      */
 
     private Usuario buscarUsuario(String id) {
-        for (Usuario usuario : listaUsuarios) {
-            if (usuario.getId().equals(id)) {
-                return usuario;
-
-            }
-        }
-        return null;
+        return buscarObjeto(id, listaUsuarios);
     }
 
     private String eliminarUsuario(Usuario usuario) {
-        String resultado = "Exitoso";
-        if (usuario != null) {
-            listaUsuarios.remove(usuario);
-            return resultado;
-        }
-        return "No exitoso";
+        return eliminarObjeto(usuario, listaUsuarios);
 
     }
 
     private String editarUsuario(Usuario usuario, Usuario usuarioNuevo) {
-        String resultado = "Exitoso";
-        if (usuario != null && usuarioNuevo != null) {
-            listaUsuarios.remove(usuario);
-            listaUsuarios.add(usuarioNuevo);
-            return resultado;
-        }
-        return "No exitoso";
+        return editarObjeto(usuario, usuarioNuevo, listaUsuarios);
     }
 
     private String agregarUsuario(Usuario usuario) {
-        String resultado = "Exitoso";
-        if (usuario != null) {
-            listaUsuarios.add(usuario);
-            return resultado;
-        }
-        return "No exitoso";
-
+        return agregarObjeto(usuario, listaUsuarios);
     }
 
 
     /*     *Constructor y Gets & Sets
      */
-    public BibliotecaMain(String nombre, LinkedList<MaterialBibliografico> listaMateriales, LinkedList<Prestamo> listaPrestamos, LinkedList<Usuario> listaUsuarios) {
+    private BibliotecaMain(String nombre, LinkedList<MaterialBibliografico> listaMateriales, LinkedList<Prestamo> listaPrestamos, LinkedList<Usuario> listaUsuarios) {
         this.nombre = nombre;
         this.listaMateriales = listaMateriales;
         this.listaPrestamos = listaPrestamos;
