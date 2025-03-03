@@ -10,14 +10,14 @@ public class BibliotecaMain {
     private String nombre;
     private LinkedList<MaterialBibliografico> listaMateriales;
     private LinkedList<Prestamo> listaPrestamos;
-    private LinkedList<Usuario> listaUsuarios;
+    private LinkedList<Persona> listaUsuarios;
     private static BibliotecaMain instance;
 
 
     /*Implementación del singleton */
     public static BibliotecaMain getInstance() {
         if (instance == null) {
-            instance = new BibliotecaMain("UQ",new LinkedList<MaterialBibliografico>(), new LinkedList<Prestamo>(), new LinkedList<Usuario>() ); // Se crea solo la primera vez
+            instance = new BibliotecaMain("UQ",new LinkedList<MaterialBibliografico>(), new LinkedList<Prestamo>(), new LinkedList<Persona>() ); // Se crea solo la primera vez
         }
         return instance;
     }
@@ -25,12 +25,15 @@ public class BibliotecaMain {
 
     /* Metodo para contar los prestamos pendientes de todos los usuarios */
 
-    private int contarPrestamoSinAprobar(){
+    public int contarPrestamoSinAprobar() {
         int contadorPrestamoSinAprobar = 0;
-        for (Usuario usuario : listaUsuarios) {
-            for (Prestamo prestamo : usuario.getPrestamosPropios()) {
-                if (!prestamo.isAprobado()) {
-                    contadorPrestamoSinAprobar++;
+        for (Persona usuario : listaUsuarios) {
+            if (usuario instanceof Usuario) {  // Verifica si es un Usuario
+                Usuario u = (Usuario) usuario; // Downcasting seguro
+                for (Prestamo prestamo : u.getPrestamosPropios()) {
+                    if (!prestamo.isAprobado()) {
+                        contadorPrestamoSinAprobar++;
+                    }
                 }
             }
         }
@@ -39,17 +42,24 @@ public class BibliotecaMain {
 
     /* Metodo para encontrar los usuarios con prestamos sin aprobar  */
 
-    private String usuariosPrestamoSinAprobar(){
-        String usuarios = "";
-        for (Usuario usuario : listaUsuarios) {
-            for (Prestamo prestamo : usuario.getPrestamosPropios()) {
-                if (!prestamo.isAprobado()) {
-                    usuarios = usuarios + usuario.getNombre() + ", ";
-                    break;
+    public String usuariosPrestamoSinAprobar() {
+        StringBuilder usuarios = new StringBuilder();
+        for (Persona usuario : listaUsuarios) {
+            if (usuario instanceof Usuario) { // Verifica si es un Usuario
+                Usuario u = (Usuario) usuario; // Downcasting seguro
+                for (Prestamo prestamo : u.getPrestamosPropios()) {
+                    if (!prestamo.isAprobado()) {
+                        usuarios.append(usuario.getNombre()).append(", ");
+                        break; // Evita agregar el mismo usuario más de una vez
+                    }
                 }
             }
         }
-        return usuarios;
+        // Elimina la última coma y el espacio si hay datos en la lista
+        if (!usuarios.isEmpty()) {
+            usuarios.setLength(usuarios.length() - 2);
+        }
+        return usuarios.toString();
     }
 
     /*Metodo para buscarun material por el autor*/
@@ -135,7 +145,7 @@ public class BibliotecaMain {
 
     /*CRUD Prestamo     */
 
-    private Prestamo buscarPrestamo(String id) {
+    public Prestamo buscarPrestamo(String id) {
         return buscarObjeto(id, listaPrestamos);
     }
 
@@ -143,37 +153,37 @@ public class BibliotecaMain {
         return agregarObjeto(prestamo, listaPrestamos);
     }
 
-    private String eliminarPrestamo(Prestamo prestamo) {
+    public String eliminarPrestamo(Prestamo prestamo) {
         return eliminarObjeto(prestamo, listaPrestamos);
     }
 
-    private String editarPrestamo(Prestamo prestamo, Prestamo prestamoNuevo) {
+    public String editarPrestamo(Prestamo prestamo, Prestamo prestamoNuevo) {
         return editarObjeto(prestamo, prestamoNuevo, listaPrestamos);
     }
 
     /*CRUD Usuario      */
 
-    private Usuario buscarUsuario(String id) {
+    public Persona buscarUsuario(String id) {
         return buscarObjeto(id, listaUsuarios);
     }
 
-    private String eliminarUsuario(Usuario usuario) {
+    public String eliminarUsuario(Persona usuario) {
         return eliminarObjeto(usuario, listaUsuarios);
 
     }
 
-    private String editarUsuario(Usuario usuario, Usuario usuarioNuevo) {
+    public String editarUsuario(Persona usuario, Persona usuarioNuevo) {
         return editarObjeto(usuario, usuarioNuevo, listaUsuarios);
     }
 
-    private String agregarUsuario(Usuario usuario) {
+    public String agregarUsuario(Persona usuario) {
         return agregarObjeto(usuario, listaUsuarios);
     }
 
 
     /*     *Constructor y Gets & Sets
      */
-    private BibliotecaMain(String nombre, LinkedList<MaterialBibliografico> listaMateriales, LinkedList<Prestamo> listaPrestamos, LinkedList<Usuario> listaUsuarios) {
+    private BibliotecaMain(String nombre, LinkedList<MaterialBibliografico> listaMateriales, LinkedList<Prestamo> listaPrestamos, LinkedList<Persona> listaUsuarios) {
         this.nombre = nombre;
         this.listaMateriales = listaMateriales;
         this.listaPrestamos = listaPrestamos;
@@ -214,11 +224,11 @@ public class BibliotecaMain {
         this.listaPrestamos = listaPrestamos;
     }
 
-    public LinkedList<Usuario> getListaUsuarios() {
+    public LinkedList<Persona> getListaUsuarios() {
         return listaUsuarios;
     }
 
-    public void setListaUsuarios(LinkedList<Usuario> listaUsuarios) {
+    public void setListaUsuarios(LinkedList<Persona> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
     }
 }

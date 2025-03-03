@@ -39,7 +39,7 @@ public class UsuarioAdmin extends Persona implements IGestorAdmin{
     }
 
     /*Metodo para aprobar los prestamos de un usuario y añadirlos a la lista de prestamos de la biblioteca */
-    private String aprobarPrestamos(Usuario usuario, String id, LocalDate fechaInicio, LocalDate fechaFin) {
+    public String aprobarPrestamos(Usuario usuario, String id, LocalDate fechaInicio, LocalDate fechaFin) {
         String aprobado = "No hay prestamos sin aprobar";
         for (Prestamo prestamo : usuario.getPrestamosPropios()) {
             if (!prestamo.isAprobado()) {
@@ -57,29 +57,31 @@ public class UsuarioAdmin extends Persona implements IGestorAdmin{
     }
 
     /*Metodo para sancionar a todos los usuarios con prestamos vencidos*/
-    private void sacionarUsuariosPrestamosVencidos(){
-        for (Usuario u : bibliotecaMain.getListaUsuarios()){
-            for (Prestamo p: u.getPrestamosPropios()){
-                if (p.isVencido()){
-                    u.setSancionado(true);
+    public void sancionarUsuariosPrestamosVencidos() {
+        for (Persona u : bibliotecaMain.getListaUsuarios()) {
+            if (u instanceof Usuario) { // Verificar si es un Usuario
+                Usuario usuario = (Usuario) u; // Downcasting seguro
+                for (Prestamo p : usuario.getPrestamosPropios()) {
+                    if (p.isVencido()) {
+                        usuario.setSancionado(true);
+                        break; // Evita sancionar múltiples veces al mismo usuario
+                    }
                 }
             }
         }
     }
-
     /*Metodo para sancionar a usuario especifico a partir de @param id*/
-    private String sancionarUsuario(String id) {
-        String resultado = "Exitoso";
+    public String sancionarUsuario(String id) {
+        String resultado = "No exitoso";
         if (id != null) {
-            for (Usuario u : bibliotecaMain.getListaUsuarios()) {
-                if (u.getId().equals(id)) {
-                    u.setSancionado(true);
-                    return resultado;
+            for (Persona u : bibliotecaMain.getListaUsuarios()) {
+                if (u instanceof Usuario && u.getId().equals(id)) { // Verifica tipo y compara ID
+                    ((Usuario) u).setSancionado(true); // Downcasting y sanción
+                    return "Exitoso";
                 }
             }
         }
-
-        return "No exitoso";
+        return resultado;
     }
 
     public LinkedList<Prestamo> getListaPrestamosAPorbados() {

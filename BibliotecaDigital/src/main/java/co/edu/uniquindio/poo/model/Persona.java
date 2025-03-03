@@ -5,6 +5,7 @@ public abstract class Persona {
     private String id;
     private String correo;
 
+
     public String getNombre() {
         return nombre;
     }
